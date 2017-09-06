@@ -6,7 +6,6 @@ Destiny2 Weekly Reset Scraper
 
 from urllib.request import urlopen
 import sys
-import re
 from bs4 import BeautifulSoup as web
 
 #Load LiveEvents submenu
@@ -29,14 +28,14 @@ for item in ACTIVITIES:
         div = act.findAll('div', {'data-identifier':'modifier-information'})
         mods = [x.find('div', {'class':'title'}).get_text() for x in div]
         mod_descs = [x.find('div', {'class':'subtitle'}).get_text() for x in div]
-           
+
         print(title+'  ('+event_dates+')', subtitle, sep='\n', end='\n\n')
         print('Modifiers:')
         for i, (mod, desc) in enumerate(zip(mods, mod_descs)):
             print('    '+mod, '       '+desc+'\n', sep='\n', end='\n')
-            
+
     else:
         div = act.find('div', {'data-identifier':'quest-information'})
         title = div.find('div', {'class':'title'}).get_text()
-        
+
         print(title+'  ('+event_dates+')', sep='\n', end='\n\n')
